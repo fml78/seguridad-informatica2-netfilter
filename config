@@ -1,8 +1,16 @@
+# Parametros de configuracion del firewall para la interfaz de red externa (internet)
+
 IP="10.211.55.60"
 MASK="255.255.255.0"
 GW="192.168.1.254"
 DNS="10.211.55.1"
 
+# Parametros de configuracion del firewall para la interfaz de red interna (red interna)
+
 IP_INT="172.16.0.254"
 MASK_INT="255.255.255.0"
 NET_INT="172.16.0.0"
+
+# Parametros de configuracion del servidor ubicado en la red interna 
+IP_SRV_INT="172.16.0.10"
+MASK_SRV_INT="255.255.255.0"
