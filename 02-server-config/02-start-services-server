@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright 2014 Francisco Medina Lopez <paco.medina@comunidad.unam.mx>
+
+# Inicio servicios SSH y HTTP
+service apache2 start
+
+service ssh start
+
+
