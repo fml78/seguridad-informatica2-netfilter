@@ -1,0 +1,13 @@
+#!/bin/bash
+# Copyright 2014 Francisco Medina Lopez <paco.medina@comunidad.unam.mx>
+
+# Lee el archivo de configuracion
+. ../config
+
+# Redirige trafico SSH de la red EXTERNA al servidor de la red INTERNA
+
+iptables -t nat -A PREROUTING -p tcp -d $IP --dport 2222 -j DNAT --to $IP_INT:22
+
+# Redirige trafico HTTP de la red EXTERNA al servidor de la red INTERNA 
+
+iptables -t nat -A PREROUTING -p tcp -d $IP --dport 80 -j DNAT --to $IP_INT:80

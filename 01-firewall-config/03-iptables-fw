@@ -1,0 +1,32 @@
+#!/bin/bash
+# Copyright 2014 Francisco Medina Lopez <paco.medina@comunidad.unam.mx>
+
+# Lee el archivo de configuracion
+. ../config
+
+# Limpia las reglas de las tablas INPUT, OUTPUT, FORWARD
+iptables -F
+
+# Establece politica restrictiva (todos los paquetes se ignoran)
+iptables -P INPUT DROP
+
+# Permite trafico en la interfaz de loopback
+iptables -A INPUT -s 127.0.0.1 -i lo -j ACCEPT
+iptables -A INPUT -d 127.0.0.1 -i lo -j ACCEPT
+
+
+# Permite trafico entrante de peticiones iniciadas por el host
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Permite conexiones SSH
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
+
+# Permite conexiones HTTP
+iptables -A INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
+
+# Pemite ping
+iptables -A INPUT -p icmp --icmp-type 8 -s 0/0  -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+
+
+
+

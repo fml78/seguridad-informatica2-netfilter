@@ -1,0 +1,19 @@
+#!/bin/bash
+# Copyright 2014 Francisco Medina Lopez <paco.medina@comunidad.unam.mx>
+
+# Lee el archivo de configuracion
+. ../config
+
+
+# Limpia todas las reglas 
+
+iptables -F
+iptables -t nat -F
+iptables -t mangle -F
+
+# Habilita el reenvio de paquets
+echo 1 > /proc/sys/net/ipv4/ip_forward 
+
+# Configura el NAT para permitir la salida a internet de la red interna
+iptables -t nat -A POSTROUTING -s $NET_INT/$MASK_INT -o eth0 -j MASQUERADE
+
