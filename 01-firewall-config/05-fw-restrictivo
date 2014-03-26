@@ -1,0 +1,23 @@
+#!/bin/bash
+# Copyright 2014 Francisco Medina Lopez <paco.medina@comunidad.unam.mx>
+
+# Lee el archivo de configuracion
+. ../config
+
+echo "[+] Configurando la cadena FORWARD..."
+
+# Establece politica restrictiva (todos los paquetes se ignoran)
+iptables -P FORWARD DROP
+
+iptables -A FORWARD -m state --state INVALID -j LOG --log-prefix "DROP INVALID " --log-ip-options --log-tcp-options
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+
+
+iptables -A FORWARD -p tcp --dport 80 --syn -m state --state NEW -j ACCEPT
+iptables -A FORWARD -p tcp --dport 443 --syn -m state --state NEW -j ACCEPT
+
+iptables -A FORWARD -p udp --dport 53 -m state --state NEW -j ACCEPT
+
+iptables -A FORWARD -p icmp --icmp-type  echo-request -j ACCEPT
+
