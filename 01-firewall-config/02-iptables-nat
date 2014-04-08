@@ -6,14 +6,18 @@
 
 
 # Limpia todas las reglas 
+echo "[+] Borrando las reglas de netfilter..."
+
 
 iptables -F
 iptables -t nat -F
 iptables -t mangle -F
 
-# Habilita el reenvio de paquets
+# Habilita el reenvio de paquetes
+echo "[+] Habilitando el reenvio de paquetes..."
 echo 1 > /proc/sys/net/ipv4/ip_forward 
 
-# Configura el NAT para permitir la salida a internet de la red interna
+# Configura NAT para permitir la salida a internet de la red interna
+echo "[+] Configurando NAT..."
 iptables -t nat -A POSTROUTING -s $NET_INT/$MASK_INT -o eth0 -j MASQUERADE
 

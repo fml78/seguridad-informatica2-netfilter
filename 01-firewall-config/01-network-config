@@ -4,7 +4,13 @@
 # Lee el archivo de configuracion
 . ../config
 
+# Detiene el servicio NetworkManager 
+echo "[+] Deteniendo el servicio NetworkManager..."
+pkill NetworkManager
+pkill dhclient
+
 # Configura los parametros de la red externa
+echo "[+] Configurando los parametros de la red externa..."
 ifconfig eth0 down
 ifconfig eth0 $IP netmask $MASK up
 route add default gw $GW
@@ -12,6 +18,7 @@ echo "nameserver $DNS">/etc/resolv.conf
 
 
 # Configura los parametros de la red interna
+echo "[+] Configurando los parametros de la red interna..."
 ifconfig eth0:1 down
 ifconfig eth0:1 $IP_INT netmask $MASK_INT up
 
