@@ -1,9 +1,9 @@
 # Parametros de configuracion del firewall para la interfaz de red externa (internet)
 
-IP="10.211.55.60"
+IP="192.168.2.89"
 MASK="255.255.255.0"
-GW="192.168.1.254"
-DNS="10.211.55.1"
+GW="192.168.2.254"
+DNS="132.248.10.2"
 
 # Parametros de configuracion del firewall para la interfaz de red interna (red interna)
 
